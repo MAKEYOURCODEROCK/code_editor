@@ -1,0 +1,25 @@
+from pytube import YouTube
+from moviepy.editor import *
+import os, shutil
+import getpass
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
+def get_mp3():
+    url = input("Hello world: ")
+    output = "mp3"
+    print("Converting")
+
+    mp4 = YouTube(url).streams.get_highest_resolution().download(url)
+    mp3 = mp4.split(".mp4,", 1)[0] + f".{output}"
+
+    video_clip = VideoFileClip(mp4)
+    audio_clip = video_clip.audio
+    audio_clip.write_audiofile(mp3)
+
+    audio_clip.close()
+    video_clip.close()
+
+get_mp3()
+

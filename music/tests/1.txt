@@ -1,0 +1,43 @@
+from tkinter import *
+import os
+import getpass
+
+music = Tk()
+music.title("Music 🎧")
+music.geometry("350x600")
+
+user = getpass.getuser()
+directory = os.path.exists("/users/" + user + "/.music/")
+if directory == False:
+    os.mkdir("/users/" + user + "/.music/")
+
+if directory == True:
+    main = os.listdir("/users/" + user + "/.music/")
+    check = len(main)
+    if check == 0:
+        #user needs to press add music button to add music
+        print("you have no music")    
+    else:
+        #gets music from that specific file
+        print("Loading Music")
+        files = main
+        i = 0
+        while i < check:
+            file = files[i][-3:]
+            if file != "mp3":
+                print("going")
+            else:
+                print(files[i])
+                os.system("afplay " + "/users/" + user + "/.music/" + files[i])
+            i += 1
+
+
+
+
+
+#filename = input("filename:")
+#os.system("afplay " + filename)
+
+music.configure(bg="")
+
+music.mainloop()
